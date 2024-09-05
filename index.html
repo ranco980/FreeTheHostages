@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Web Page</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+   <h1>שחררו את החטופים!</h1>
+   
+   <p id="descriptionText">This text will change on page load.</p>
+
+	<input type="checkbox" id="checkboxRestore">
+	<label for="checkboxRestore">שיקום הרצועה וסיוע הומניטרי</label><br><br>
+	
+	<input type="checkbox" id="checkboxRetreat">
+	<label for="checkboxRetreat">נסיגה מלאה</label>
+    <br><br>
+	
+    <input type="checkbox" id="checkboxIsmail">
+	<label for="checkboxIsmail">התחייבו לא לחסל את מנהיג החמאס</label><br><br>
+	
+    <input type="checkbox" id="checkboxBlood">
+	<label for="checkboxBlood">20 אחוזים מהאסירים עם דם על הידיים (כולל ברגותי)</label><br><br>
+	
+	<input type="checkbox" id="checkboxHamasRule">
+	<label for="checkboxHamasRule">המשך שלטון חמאס ברצועה</label>
+    <br><br>
+	
+	<label id="sliderPrisonersLabel" for="sliderPrisoners">כמות אסירים לכל חטוף (סכ"ה 0)</label><br>
+    <input type="range" id="sliderPrisoners" min="0" max="10" value="50">
+    <span id="sliderPrisonersValue">0</span><br><br>
+	
+	<p id="suggestionText"></p>
+	
+    <button id="SendButton" onclick="send()">שלח הצעה</button>
+
+	<script src="translations.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
