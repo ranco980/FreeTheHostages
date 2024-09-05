@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Web Page</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Simple Suggestion Generator</h1>
+
+    <label for="slider1">Value 1:</label>
+    <input type="range" id="slider1" min="0" max="100" value="50">
+    <span id="slider1Value">50</span><br><br>
+
+    <label for="slider2">Value 2:</label>
+    <input type="range" id="slider2" min="0" max="100" value="50">
+    <span id="slider2Value">50</span><br><br>
+
+    <label for="slider3">Value 3:</label>
+    <input type="range" id="slider3" min="0" max="100" value="50">
+    <span id="slider3Value">50</span><br><br>
+
+    <label for="checkbox">Check this box for a special suggestion:</label>
+    <input type="checkbox" id="checkbox"><br><br>
+
+    <button onclick="generateSuggestion()">Generate Suggestion</button>
+
+    <h2>Suggestion:</h2>
+    <p id="suggestionText">Your suggestion will appear here...</p>
+
+    <script src="script.js"></script>
+</body>
+</html>
