@@ -1,9 +1,3 @@
-const initialHostagesValue = 97;
-let hostagesVar = initialHostagesValue;
-const defaultLanguage = "he";
-let lang = defaultLanguage;
-let offerNumber = 1;
-
 
 function getText(variable, replacements = {}) {
     let text = translations[lang][variable] || translations[defaultLanguage][variable] || `Missing translation for ${variable}`;
@@ -78,19 +72,16 @@ function updateOfferNumber()
 	document.getElementById("SendButton").innerText = getText(`offerNumber`,{var1});
 }
 
-function isAgree(isRestore,isIsmail,isBlood,isHamasRule,isRetreat,prisoners)
+function isAgree(isRestore,isIsmail,isBlood,isHamasRule,isRetreat,prisoners,isPhiladelphi)
 {
-	return (isRestore && isBlood && isHamasRule && isRetreat && (prisoners >= 20) || ((prisoners >= 10) && isIsmail));
-}
-
-function getSummary(isRestore,isIsmail,isBlood,isHamasRule,isRetreat,prisoners)
-{
-	let summary = ``;
-	
-	summary += getText(`hamasAgreeToDeal`);
-	
-	
-	return summary;
+	return (
+		isRestore && 
+		isBlood && 
+		isHamasRule && 
+		isRetreat && 
+		isPhiladelphi && 
+		(prisoners >= minimumPrisonersReleased)
+	);
 }
 
 function send() 
@@ -101,19 +92,34 @@ function send()
 	const isBlood = document.getElementById("checkboxBlood").checked;
 	const isHamasRule = document.getElementById("checkboxHamasRule").checked;
 	const isRetreat = document.getElementById("checkboxRetreat").checked;
+	const isPhiladelphi = document.getElementById("checkboxPhiladelphi").checked;
 
     let demands = ``;
+	let var1 = 0;
 	
-	if (isAgree(isRestore,isIsmail,isBlood,isHamasRule,isRetreat,prisoners)) {
-		demands += getSummary();
+	if (isAgree(isRestore,isIsmail,isBlood,isHamasRule,isRetreat,prisoners,isPhiladelphi)) {
+		demands += getSummaryAgree(isRestore,isIsmail,isBlood,isHamasRule,isRetreat,prisoners,isPhiladelphi);
+	} else if (!isRestore) {
+		demands += getText(`hamasWantsRestoration`);
+	} else if (!isRetreat) {
+		demands += getText(`hamasWantsFullRetreat`);
+	} else if (prisoners < minimumPrisonersReleased){
+		var1 = minimumPrisonersReleased;
+		demands += getText(`hamasWantsAtLeastPrisoners`,{var1});
+	} else if (!isBlood) {
+		demands += getText(`hamasWants20PercentsOfPrisonersWithBlood`);
+	} else if (!isPhiladelphi) {
+		demands += getText(`hamasWantsPhiladelphi`);
+	} else if (!isHamasRule) {
+		demands += getText(`hamasWantsToContinueToRule`);
 	} else {
-		demands += getText(`minimumRequirement`);
+		demands += getText(`hamasDoesNotAccept`);
 	}
 
     document.getElementById("suggestionText").innerText = demands;
 	
-	offerNumber++;
-	updateOfferNumber();
+	//offerNumber++;
+	//updateOfferNumber();
 }
 
 window.onload = function() {
@@ -126,7 +132,7 @@ function initializePage() {
 	document.getElementById("sliderPrisoners").value = 0;
 	document.getElementById("sliderPrisonersValue").innerText = 0;
 	updatePrisonersSliderTitle(0);
-	updateOfferNumber();
+	//updateOfferNumber();
 	
-	document.getElementById("suggestionText").innerText = getText(`minimumRequirement`);
+	document.getElementById("suggestionText").innerText = getText(`hamasWaitsProposal`);
 }
